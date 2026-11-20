@@ -128,7 +128,7 @@
 ## 目录结构
 
 ```
-Mancu-source/
+Mancu/
 ├─ start.cmd                    启动入口（双击这个）
 ├─ start.ps1                    启动器：选 Python、建 .venv、装依赖、拉起服务
 ├─ stop.cmd                     停止服务（只结束本项目的进程）
