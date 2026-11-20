@@ -1,0 +1,166 @@
+
+/* ---------- history panel ---------- */
+
+.history-box {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--wall-line);
+}
+
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--wall-dim);
+  margin-bottom: 8px;
+}
+
+.history-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  color: var(--wall-dim);
+  cursor: pointer;
+}
+
+.history-filter input {
+  width: 11px;
+  height: 11px;
+  cursor: pointer;
+}
+
+.history-empty {
+  font-size: 10px;
+  color: var(--wall-faint);
+  padding: 4px 0;
+}
+
+.history-group {
+  margin-bottom: 8px;
+}
+
+/* 分组读作展签：宋体、金色、字距拉开 */
+.history-group-label {
+  font-family: var(--serif);
+  font-size: 9.5px;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  margin: 4px 0 3px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+}
+
+.history-item:hover {
+  background: color-mix(in srgb, var(--wall-text) 7%, transparent);
+}
+
+.history-item.active {
+  background: var(--wall-2);
+  border-left-color: var(--gold);
+}
+
+.history-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.history-title {
+  font-size: 10.5px;
+  color: var(--wall-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-item.active .history-title {
+  color: #ffffff;
+}
+
+.history-meta {
+  font-size: 9px;
+  color: var(--wall-dim);
+  margin-top: 1px;
+}
+
+/* Which pipeline a history row came from. Two exist in the database and their
+   rows otherwise look identical: one opens to prompts, portraits and clips, the
+   other produces text with no media at all. */
+.history-wf {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 8.5px;
+  background: color-mix(in srgb, var(--wall-text) 12%, transparent);
+  color: var(--wall-text);
+}
+
+.history-wf.doc {
+  background: color-mix(in srgb, var(--gold) 26%, transparent);
+  color: #e8c48a;
+}
+
+/* 运行中：这一行不是历史，点它回到任务本身。用呼吸点而不是色块，
+   因为它是"正在进行"，不是"某一类"。 */
+.history-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-right: 4px;
+  font-size: 8.5px;
+  color: var(--gold);
+}
+
+.history-live::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: history-live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes history-live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Revealed on hover only: a column of marks would make the list read as
+   destructive rather than as a list of conversations. */
+.history-del {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--wall-faint);
+  font-size: 11px;
+  padding: 2px 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.history-item:hover .history-del {
+  opacity: 1;
+}
+
+.history-del:hover {
+  color: #e8a184;
+}
+
+.history-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="漫簇">
+  <defs>
+    <!-- 左侧人形：珊瑚色，头部亮、末端深 -->
+    <linearGradient id="coral" x1="0.8" y1="0.08" x2="0.12" y2="0.95">
+      <stop offset="0" stop-color="#d08160"/>
+      <stop offset="1" stop-color="#a8442e"/>
+    </linearGradient>
+    <!-- 中间折角：丝带翻起来的受光面，比珊瑚更浅 -->
+    <linearGradient id="fold" x1="0.2" y1="0.9" x2="0.85" y2="0.1">
+      <stop offset="0" stop-color="#dd9e7f"/>
+      <stop offset="1" stop-color="#cb7454"/>
+    </linearGradient>
+    <!-- 右侧人形：靠近头部深绛、末端转正红 -->
+    <linearGradient id="crimson" x1="0.15" y1="0.1" x2="0.9" y2="0.95">
+      <stop offset="0" stop-color="#8d1423"/>
+      <stop offset="1" stop-color="#c52532"/>
+    </linearGradient>
+    <radialGradient id="headL" cx="0.35" cy="0.3" r="1">
+      <stop offset="0" stop-color="#d38b68"/>
+      <stop offset="1" stop-color="#b0563e"/>
+    </radialGradient>
+    <radialGradient id="headR" cx="0.35" cy="0.3" r="1">
+      <stop offset="0" stop-color="#a32330"/>
+      <stop offset="1" stop-color="#7b1120"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 奶油色圆角底 -->
+  <rect x="6" y="6" width="188" height="188" rx="48" fill="#f8e9db"/>
+
+  <!-- 左侧人形：左下端点 → 左肩 → 中央谷底 -->
+  <path d="M61 156 L86 106 L104 140" fill="none" stroke="url(#coral)"
+        stroke-width="27" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 折角受光面：谷底翻向右肩的那段丝带 -->
+  <path d="M104 140 L120 110" fill="none" stroke="url(#fold)"
+        stroke-width="27" stroke-linecap="round"/>
+
+  <!-- 右侧人形：右肩 → 右下端点 -->
+  <path d="M120 110 L143 156" fill="none" stroke="url(#crimson)"
+        stroke-width="27" stroke-linecap="round"/>
+
+  <!-- 两颗头 -->
+  <circle cx="76" cy="64" r="16.5" fill="url(#headL)"/>
+  <circle cx="127" cy="64" r="16.5" fill="url(#headR)"/>
+</svg>

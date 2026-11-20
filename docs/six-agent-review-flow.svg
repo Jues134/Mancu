@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">六 Agent 协同关系与审查门</title>
+  <desc id="desc">导演切分并派发任务，内容改编、剧本分镜、一致性和视频生成依次执行，每个阶段均经过质量审查；审查失败后由导演定向派发给责任节点返工。</desc>
+
+  <defs>
+    <marker id="arrow-navy" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#173a63"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#0f766e"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#be234f"/>
+    </marker>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#173a63" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .sans { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; }
+      .title { fill: #173a63; font-size: 27px; font-weight: 700; }
+      .section { fill: #173a63; font-size: 12px; font-weight: 700; letter-spacing: 1.8px; }
+      .node-title { fill: #143452; font-size: 21px; font-weight: 700; }
+      .node-id { fill: #0f766e; font-size: 13px; font-weight: 600; }
+      .node-note { fill: #60758c; font-size: 13px; }
+      .small { fill: #60758c; font-size: 12px; }
+      .gate-label { fill: #a21f47; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+      .quality-title { fill: #a21f47; font-size: 22px; font-weight: 700; }
+      .quality-id { fill: #be234f; font-size: 13px; font-weight: 600; }
+      .quality-note { fill: #7f5260; font-size: 13px; }
+      .footer { fill: #4f6277; font-size: 14px; }
+      .footer-strong { fill: #173a63; font-weight: 700; }
+      .flow-label { fill: #516b87; font-size: 12px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="900" fill="#ffffff"/>
+
+  <!-- 标题与图例 -->
+  <g class="sans">
+    <text class="section" x="48" y="34">WORKFLOW MAP</text>
+    <text class="title" x="48" y="68">六 Agent 协同关系与审查门</text>
+
+    <g transform="translate(1080 32)">
+      <path d="M0 12H52" fill="none" stroke="#173a63" stroke-width="2.5" marker-end="url(#arrow-navy)"/>
+      <text class="small" x="64" y="16">执行与派发</text>
+      <path d="M0 43H52" fill="none" stroke="#be234f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-red)"/>
+      <text class="small" x="64" y="47">审查与返工</text>
+    </g>
+  </g>
+
+  <!-- 连接线先绘制，始终位于节点下方 -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 导演派发到段内流水线 -->
+    <path d="M720 178V216" stroke="#173a63" stroke-width="3" marker-end="url(#arrow-navy)"/>
+    <path d="M720 268V304H185V332" stroke="#173a63" stroke-width="3" marker-end="url(#arrow-navy)"/>
+
+    <!-- 段内执行流 -->
+    <path d="M300 396H362" stroke="#0f766e" stroke-width="3" marker-end="url(#arrow-teal)"/>
+    <path d="M592 396H654" stroke="#0f766e" stroke-width="3" marker-end="url(#arrow-teal)"/>
+    <path d="M884 396H946" stroke="#0f766e" stroke-width="3" marker-end="url(#arrow-teal)"/>
+
+    <!-- 各阶段输出进入审查门 -->
+    <path d="M185 456V490" stroke="#be234f" stroke-width="2.4" marker-end="url(#arrow-red)"/>
+    <path d="M477 456V490" stroke="#be234f" stroke-width="2.4" marker-end="url(#arrow-red)"/>
+    <path d="M769 456V490" stroke="#be234f" stroke-width="2.4" marker-end="url(#arrow-red)"/>
+    <path d="M1061 456V490" stroke="#be234f" stroke-width="2.4" marker-end="url(#arrow-red)"/>
+
+    <!-- 审查门汇入质量审查；四条曲线按顺序落点，不相交 -->
+    <path d="M185 552C185 596 420 590 530 630" stroke="#be234f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-red)"/>
+    <path d="M477 552C477 596 552 594 652 630" stroke="#be234f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-red)"/>
+    <path d="M769 552C769 592 770 598 788 630" stroke="#be234f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-red)"/>
+    <path d="M1061 552C1061 596 1010 598 910 630" stroke="#be234f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-red)"/>
+
+    <!-- 失败返工闭环：审查结果回到导演，由导演只派发责任节点 -->
+    <path d="M1010 686H1390V128H944" stroke="#be234f" stroke-width="2.5" stroke-dasharray="9 7" marker-end="url(#arrow-red)"/>
+  </g>
+
+  <!-- 导演节点 -->
+  <g class="sans" filter="url(#soft-shadow)">
+    <rect x="496" y="82" width="448" height="96" rx="14" fill="#edf3fa" stroke="#173a63" stroke-width="2.5"/>
+    <text class="node-title" x="720" y="120" text-anchor="middle">导演 Agent</text>
+    <text class="node-note" x="720" y="148" text-anchor="middle">判断输入 · 切分段落 · 制定计划 · 定向派发</text>
+  </g>
+
+  <!-- 并行提示 -->
+  <g class="sans">
+    <rect x="545" y="216" width="350" height="52" rx="9" fill="#ffffff" stroke="#173a63" stroke-width="2"/>
+    <text class="flow-label" x="720" y="248" text-anchor="middle">提示词各段并行 · 出图与出视频全片串行</text>
+  </g>
+
+  <!-- 四个生产节点 -->
+  <g class="sans" filter="url(#soft-shadow)">
+    <g>
+      <rect x="70" y="332" width="230" height="124" rx="13" fill="#eaf7f5" stroke="#0f766e" stroke-width="2.3"/>
+      <text class="node-title" x="185" y="371" text-anchor="middle">内容改编</text>
+      <text class="node-id" x="185" y="398" text-anchor="middle">script_adaptor</text>
+      <text class="node-note" x="185" y="426" text-anchor="middle">剧本改编 · 史实核验</text>
+    </g>
+    <g>
+      <rect x="362" y="332" width="230" height="124" rx="13" fill="#eaf7f5" stroke="#0f766e" stroke-width="2.3"/>
+      <text class="node-title" x="477" y="371" text-anchor="middle">剧本分镜</text>
+      <text class="node-id" x="477" y="398" text-anchor="middle">storyboard</text>
+      <text class="node-note" x="477" y="426" text-anchor="middle">拆镜 · 运镜 · 镜头提示词</text>
+    </g>
+    <g>
+      <rect x="654" y="332" width="230" height="124" rx="13" fill="#eaf7f5" stroke="#0f766e" stroke-width="2.3"/>
+      <text class="node-title" x="769" y="371" text-anchor="middle">一致性</text>
+      <text class="node-id" x="769" y="398" text-anchor="middle">consistency</text>
+      <text class="node-note" x="769" y="426" text-anchor="middle">人物 · 场景 · 道具 · 声音</text>
+    </g>
+    <g>
+      <rect x="946" y="332" width="230" height="124" rx="13" fill="#eaf7f5" stroke="#0f766e" stroke-width="2.3"/>
+      <text class="node-title" x="1061" y="371" text-anchor="middle">视频生成</text>
+      <text class="node-id" x="1061" y="398" text-anchor="middle">video_gen</text>
+      <text class="node-note" x="1061" y="426" text-anchor="middle">模型适配 · 渲染 · 回收</text>
+    </g>
+  </g>
+
+  <!-- 通过后继续标签，独立占据箭头上方，不压在线上 -->
+  <g class="sans">
+    <text class="flow-label" x="331" y="382" text-anchor="middle">通过</text>
+    <text class="flow-label" x="623" y="382" text-anchor="middle">通过</text>
+    <text class="flow-label" x="915" y="382" text-anchor="middle">通过</text>
+  </g>
+
+  <!-- 四道审查门 -->
+  <g class="sans">
+    <g>
+      <path d="M185 490L215 522L185 554L155 522Z" fill="#fff4f6" stroke="#be234f" stroke-width="2"/>
+      <text x="185" y="529" text-anchor="middle" fill="#a21f47" font-size="16" font-weight="700">审</text>
+      <text class="gate-label" x="229" y="528">SCRIPT REVIEW</text>
+    </g>
+    <g>
+      <path d="M477 490L507 522L477 554L447 522Z" fill="#fff4f6" stroke="#be234f" stroke-width="2"/>
+      <text x="477" y="529" text-anchor="middle" fill="#a21f47" font-size="16" font-weight="700">审</text>
+      <text class="gate-label" x="521" y="528">STORYBOARD REVIEW</text>
+    </g>
+    <g>
+      <path d="M769 490L799 522L769 554L739 522Z" fill="#fff4f6" stroke="#be234f" stroke-width="2"/>
+      <text x="769" y="529" text-anchor="middle" fill="#a21f47" font-size="16" font-weight="700">审</text>
+      <text class="gate-label" x="813" y="528">ASSET REVIEW</text>
+    </g>
+    <g>
+      <path d="M1061 490L1091 522L1061 554L1031 522Z" fill="#fff4f6" stroke="#be234f" stroke-width="2"/>
+      <text x="1061" y="529" text-anchor="middle" fill="#a21f47" font-size="16" font-weight="700">审</text>
+      <text class="gate-label" x="1105" y="528">VIDEO REVIEW</text>
+    </g>
+  </g>
+
+  <!-- 质量审查节点 -->
+  <g class="sans" filter="url(#soft-shadow)">
+    <rect x="430" y="630" width="580" height="112" rx="14" fill="#fff0f3" stroke="#be234f" stroke-width="2.5"/>
+    <text class="quality-title" x="720" y="668" text-anchor="middle">质量审查 Agent</text>
+    <text class="quality-id" x="720" y="696" text-anchor="middle">quality_review</text>
+    <text class="quality-note" x="720" y="723" text-anchor="middle">规则先行 · 模型复核 · P0–P3 · 输出责任节点与问题定位</text>
+  </g>
+
+  <!-- 返工说明，放在闭环外侧的独立标签内 -->
+  <g class="sans">
+    <rect x="1110" y="612" width="250" height="58" rx="9" fill="#ffffff" stroke="#e4b6c2" stroke-width="1.5"/>
+    <text x="1235" y="636" text-anchor="middle" fill="#a21f47" font-size="13" font-weight="700">审查失败：返回导演</text>
+    <text x="1235" y="657" text-anchor="middle" fill="#7f5260" font-size="12">只重跑责任节点与出错段落</text>
+  </g>
+
+  <!-- 底部规则说明 -->
+  <g class="sans">
+    <rect x="70" y="790" width="1300" height="76" rx="12" fill="#f5f8fc" stroke="#c7d4e3" stroke-width="1.5"/>
+    <text class="footer" x="98" y="821">
+      <tspan class="footer-strong">执行约束：</tspan>
+      <tspan>三趟推进：全片先写提示词（各段可并行）→ 全片串行出图 → 全片串行出视频。开关只决定后两趟是否执行。</tspan>
+    </text>
+    <text class="footer" x="98" y="849">
+      <tspan class="footer-strong">审查约束：</tspan>
+      <tspan>每个阶段的产物独立审核；通过后继续，失败时由导演根据 responsible_agent 定向返工。</tspan>
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+{
+  "_README": [
+    "漫簇的模型供应商配置模板（不含任何真实凭据）。",
+    "本文件只是字段说明。程序不会自动使用它；首次启动时没有 providers.json 也能正常打开界面，",
+    "并提示“尚未配置大模型”。推荐做法：在界面 /settings →「供应商与 Key」里填写并保存，",
+    "程序会自动生成 backend/config/providers.json（权限仅本用户可读写）。",
+    "如果确实要手工创建，请把本文件复制为 providers.json 后逐项替换占位符：",
+    "所有 YOUR_..._HERE 必须换成真实值，空字符串表示“不启用该项”。",
+    "字段说明：",
+    "  id                 供应商内部标识，自定义唯一字符串，被 assignments/default_provider 引用",
+    "  preset             预设来源（deepseek/kimi/qwen/zhipu/doubao/custom/gateway），仅影响界面展示",
+    "  label              界面显示名，可任意填写",
+    "  base_url           必填。OpenAI 兼容地址，通常以 /v1 结尾",
+    "  api_key            必填。供应商控制台获取；本地无鉴权端点（127.0.0.1）可留空",
+    "  model              必填。文本模型 ID，例如 deepseek-chat",
+    "  vision_model       可选。读图模型 ID；留空则回落到 model",
+    "  image_model        可选。文生图模型 ID；留空表示该供应商不承担生图",
+    "  video_model        可选。图生视频模型 ID；留空表示该供应商不承担生视频",
+    "  kind               可选。空字符串 = OpenAI 兼容接口；gateway = 本地 ComfyUI 任务队列（不提供 /chat/completions）",
+    "  timeout            可选。单次请求超时（秒），默认 60",
+    "  temperature        可选。采样温度，默认 0.4",
+    "assignments           可选。把某个 agent 固定到某个供应商，值为 \"<provider_id>:<model>\"",
+    "default_provider      可选。未单独指定的 agent 使用哪个 provider id",
+    "fallbacks             可选。主供应商失败时按顺序尝试的 provider id 列表",
+    "stream                可选。是否流式返回，默认 true"
+  ],
+  "providers": [
+    {
+      "id": "my-llm",
+      "preset": "custom",
+      "label": "我的模型供应商",
+      "base_url": "https://api.example.com/v1",
+      "api_key": "YOUR_API_KEY_HERE",
+      "model": "YOUR_MODEL_NAME_HERE",
+      "vision_model": "",
+      "image_model": "",
+      "video_model": "",
+      "kind": "",
+      "timeout": 60.0,
+      "temperature": 0.4
+    }
+  ],
+  "assignments": {},
+  "default_provider": "my-llm",
+  "fallbacks": {},
+  "stream": true
+}

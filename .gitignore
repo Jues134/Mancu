@@ -1,0 +1,89 @@
+# ============================================================================
+#  漫簇 — 提交前必须排除的东西
+#
+#  这个仓库里有两类文件**绝对不能**公开：
+#    1. 含凭据的机器配置（backend/config/ 下的运行时 json）
+#    2. 用户自己的数据（backend/userdata/ 下的数据库、素材、生成结果）
+#
+#  注意：.gitignore 只对**尚未被跟踪**的文件有效。如果某个密钥文件已经被
+#  提交过，加规则不会让它消失——需要用 `git rm --cached <file>` 移出索引，
+#  并**立刻作废那把 Key**（历史里仍然留着）。
+# ============================================================================
+
+
+# ---- 凭据与运行时配置（保留 *.example.json 作为模板） ----
+backend/config/providers.json
+backend/config/channels.json
+backend/config/knowledge.json
+backend/config/studio.json
+backend/config/mcp_tools.json
+backend/config/feishu.json
+backend/config/feishu_oauth.json
+!backend/config/*.example.json
+
+# ---- 用户数据：数据库、上传、生成产物、备份 ----
+backend/userdata/*
+!backend/userdata/README.txt
+backend/userdata/.tts-probe/
+
+# ---- 数据库文件（任何位置） ----
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# ---- 环境变量与密钥 ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Node ----
+node_modules/
+frontend/dist/*.map
+
+# ---- 日志与临时文件 ----
+*.log
+logs/
+*.tmp
+*.bak
+
+# ---- 编辑器 / 操作系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 本地开发 / 代理工作目录 ----
+.workbuddy/
+.codex-work/
+frontend/.npm-cache/
+.npm-cache/
+
+# ---- 本地调试用的样书（我自己的测试素材，不属于程序） ----
+中国共产党百年大事记.md
+
+# ---- 根目录的设计草稿（如需作为设计稿发布，删掉这一行） ----
+大屏改版预览.html
+
+
+# ============================================================================
+#  刻意**不**忽略的内容：
+#    backend/models/         内置向量模型（24 MB，缺失会让语义检索降级）
+#    frontend/dist/          已构建产物，后端直接托管，克隆后即可运行
+#    backend/config/*.example.json   配置模板
+#    backend/userdata/README.txt     目录用途说明
+# ============================================================================

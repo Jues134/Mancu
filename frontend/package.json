@@ -1,0 +1,17 @@
+{
+  "name": "studio-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@esbuild/win32-x64": "0.27.4",
+    "esbuild": "0.27.4"
+  }
+}

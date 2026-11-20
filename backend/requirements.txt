@@ -1,0 +1,46 @@
+# ============================================================================
+#  Python dependencies for 漫簇
+#
+#  Install:  python -m pip install -r requirements.txt
+#
+#  Version policy: the lower bounds are what was actually tested on this machine
+#  (see the "verified" column), and the upper bounds only exclude a major version
+#  bump. Pinning exactly would be safer for a competition build, but it also makes
+#  the install fail on a machine whose Python is older than the pin expects — the
+#  bounds are a deliberate trade.
+#
+#  Verified on:  Python 3.13, Windows 11
+# ============================================================================
+
+# ---- core HTTP service: required ----
+fastapi>=0.115,<1.0            # verified 0.141.1
+uvicorn>=0.30,<1.0             # verified 0.52.3
+pydantic>=2.5,<3.0             # verified 2.12.4
+httpx>=0.27,<1.0               # verified 0.28.1  (also used by the test client)
+
+# ---- media checking: required ----
+numpy>=1.24,<3.0               # verified 2.3.5
+Pillow>=10.0,<13.0             # verified 12.0.0
+scikit-image>=0.22,<0.26       # verified 0.25.2  (SSIM check in doc/consistency.py)
+
+# ---- 语义检索：内置向量模型，装完即用，不需要任何 key ----
+#
+# 这两个包是「上传一本书就能按意思搜到」的全部依赖：模型（bge-small-zh-v1.5，
+# 24 MB int8）随程序放在 backend/models/，onnxruntime 在进程内跑，tokenizers
+# 负责中文分词。缺了它们知识库会退化成只有字面检索——能搜，但换个说法就搜不到，
+# 而界面会明说「未配置向量化模型」，不会静默给出一个错误答案。
+onnxruntime>=1.20,<2.0         # verified 1.32.0
+tokenizers>=0.20,<1.0          # verified 0.23.3
+
+# ---- optional: the app degrades gracefully without these ----
+#
+# edge-tts     Narration voice. Missing → falls back to Windows SAPI (doc/tts.py
+#              handles ImportError explicitly), so a run still produces audio.
+# mcp          Model Context Protocol server (app/mcp_main.py). Missing → that
+#              entry point is unavailable; the web app is unaffected.
+#
+# They are listed, commented out, rather than omitted: a reader looking for "how
+# do I turn on the better voice" or "how do I run the MCP server" should find the
+# package name here instead of grepping the source.
+#edge-tts>=6.1,<8.0
+#mcp>=1.0,<2.0

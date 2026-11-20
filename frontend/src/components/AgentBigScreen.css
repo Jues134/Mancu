@@ -1,0 +1,1843 @@
+.agent-screen-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  padding: 14px;
+  background: color-mix(in srgb, #1d0d0a 78%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.agent-screen {
+  width: 100%;
+  height: 100%;
+  min-width: 1120px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--text);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--gold) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--gold) 3%, transparent) 1px, transparent 1px),
+    var(--paper);
+  background-size: 34px 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  box-shadow: 0 26px 80px color-mix(in srgb, #210d09 54%, transparent);
+}
+
+.agent-screen:fullscreen {
+  border: 0;
+  border-radius: 0;
+}
+
+.agent-screen button {
+  font: inherit;
+}
+
+.agent-screen-head {
+  flex: 0 0 70px;
+  min-height: 70px;
+  display: grid;
+  grid-template-columns: 280px minmax(360px, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 10px 18px;
+  color: var(--wall-text);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--gold) 9%, transparent), transparent 44%),
+    var(--wall);
+  border-bottom: 1px solid var(--wall-line);
+}
+
+.agent-screen-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.agent-screen-seal {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  color: #fff7df;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--gold) 70%, white);
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, white 13%, transparent);
+}
+
+.agent-screen-brand h2,
+.agent-screen-brand p {
+  margin: 0;
+}
+
+.agent-screen-brand h2 {
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 18px;
+  letter-spacing: .08em;
+}
+
+.agent-screen-brand p {
+  margin-top: 3px;
+  color: var(--wall-muted);
+  font-size: 11px;
+  letter-spacing: .11em;
+}
+
+.agent-screen-task {
+  min-width: 0;
+}
+
+.agent-screen-task-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 7px;
+}
+
+.agent-screen-task-title strong {
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-badges {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-badges span {
+  padding: 3px 9px;
+  color: #f6d98d;
+  font-size: 11px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.task-badges .task-stage {
+  color: var(--wall-dim);
+  border-color: var(--wall-line);
+}
+
+.task-badges .task-status.run-done { color: #a9d3b7; border-color: color-mix(in srgb, var(--ok) 60%, transparent); }
+.task-badges .task-status.run-failed { color: #f0a58c; border-color: color-mix(in srgb, var(--fail) 60%, transparent); }
+
+.agent-screen-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-screen-progress > span {
+  flex: 0 0 auto;
+  color: var(--wall-faint);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.agent-screen-progress i,
+.work-progress i {
+  height: 6px;
+  display: block;
+  flex: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--wall-text) 12%, transparent);
+  border-radius: 99px;
+}
+
+.agent-screen-progress b,
+.work-progress b {
+  height: 100%;
+  display: block;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: inherit;
+  transition: width .35s ease;
+}
+
+.agent-screen-progress em {
+  min-width: 38px;
+  color: #f6d98d;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: right;
+}
+
+/* 失败时条子停在中断的位置，颜色跟着换掉。
+   否则「失败」旁边挂一个金色的 67%，读起来像还在跑。 */
+.agent-screen-progress.is-failed b {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--fail) 55%, transparent), var(--fail));
+}
+
+.agent-screen-progress.is-failed em {
+  color: #f0a58c;
+}
+
+.agent-screen-progress.is-done b {
+  background: linear-gradient(90deg, var(--ok), color-mix(in srgb, var(--ok) 55%, var(--gold)));
+}
+
+.agent-screen-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.agent-screen-actions .btn {
+  gap: 5px;
+  color: var(--wall-text);
+  border-color: var(--wall-line);
+}
+
+.agent-screen-metrics {
+  flex: 0 0 38px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  color: var(--text-dim);
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+}
+
+.agent-screen-metrics > span {
+  padding: 0 15px;
+  font-size: 11px;
+  white-space: nowrap;
+  border-right: 1px solid var(--border);
+}
+
+.agent-screen-metrics b {
+  margin-right: 3px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.agent-screen-metrics .metric-error b {
+  color: var(--fail);
+}
+
+.agent-screen-metrics .metric-timer b {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 14px;
+}
+
+.agent-screen-metrics .metric-timer.is-live b {
+  color: var(--accent);
+}
+
+.agent-screen-metrics .metric-current {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  border-right: 0;
+}
+
+.agent-screen-body {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(570px, 1fr) 330px;
+  flex: 1 1 auto;
+  gap: 10px;
+  padding: 10px;
+}
+
+.current-work-panel,
+.topology-panel,
+.agent-status-board {
+  min-height: 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--wall) 7%, transparent);
+}
+
+.screen-section-head {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 12px;
+  color: var(--text);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 12%, var(--bg-elev-2)), var(--bg-elev-2));
+  border-bottom: 1px solid var(--border);
+}
+
+.screen-section-head strong {
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+
+.screen-section-head span {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+
+.current-work-panel,
+.agent-status-board {
+  display: flex;
+  flex-direction: column;
+}
+
+.current-work-content {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px;
+  overflow: hidden;
+}
+
+/* 运行卡留在顶部不动（谁在跑、跑多久是要一直盯的），下面这一块独立滚动。
+   左侧一栏固定 260px 宽，塞不限长的决策原文和逐词台账，不滚动就只能截断。 */
+.current-work-scroll {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text) 26%, transparent) transparent;
+}
+
+.current-work-scroll::-webkit-scrollbar { width: 6px; }
+.current-work-scroll::-webkit-scrollbar-track { background: transparent; }
+.current-work-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 22%, transparent);
+  border-radius: 3px;
+}
+.current-work-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text) 38%, transparent);
+}
+
+.work-status-card,
+.director-decision-card,
+.plan-queue,
+.current-blocker,
+.selected-agent-detail {
+  padding: 10px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+
+.run-state {
+  display: inline-flex;
+  padding: 2px 7px;
+  color: var(--text-dim);
+  font-size: 9px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+}
+
+.run-running,
+.run-queued,
+.run-waiting {
+  color: color-mix(in srgb, var(--gold) 70%, var(--text));
+  border-color: color-mix(in srgb, var(--gold) 42%, var(--border));
+}
+
+.run-done { color: var(--ok); }
+.run-failed { color: var(--fail); }
+
+.work-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.work-scope {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  color: var(--text-faint);
+  font-size: 9px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+}
+
+.work-timer {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.work-status-card h3 {
+  margin: 8px 0 4px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.work-status-card p,
+.director-decision-card p,
+.current-blocker p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.work-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.work-progress i {
+  background: var(--bg-elev);
+}
+
+.work-progress span {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* 子 Agent 没有可靠的总量可算时给的条纹。 */
+.worker-bar.is-indeterminate b {
+  width: 40% !important;
+  animation: work-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes work-indeterminate {
+  from { margin-left: -40%; }
+  to { margin-left: 100%; }
+}
+
+/* 并发执行列表：一行一个正在跑的 Agent。分段是并发跑的，所以这里可能是好几
+   行；超过可视高度就滚动，不再挤掉下面的编排队列。 */
+.worker-list {
+  max-height: 146px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  overflow-y: auto;
+}
+
+/* 没有子任务时这块只放一行「正在推进什么」。留出和一行子任务相当的高度，
+   轮询在两态之间来回切时，卡片高度不会跳——下面那些卡片就不会被顶着上下动。 */
+.worker-list.is-empty {
+  min-height: 40px;
+  overflow: visible;
+}
+
+.worker-idle {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.worker-row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  grid-template-rows: auto 3px;
+  align-items: center;
+  gap: 2px 7px;
+  padding: 5px 7px 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.worker-icon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--wall-text);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 9px;
+  font-weight: 800;
+  background: var(--wall-2);
+  border-radius: 50%;
+}
+
+.worker-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.worker-copy strong {
+  overflow: hidden;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worker-copy small {
+  overflow: hidden;
+  color: var(--text-faint);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worker-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.worker-meta em {
+  color: var(--text-faint);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.worker-bar {
+  grid-column: 1 / -1;
+  height: 3px;
+  margin-top: 3px;
+  display: block;
+  overflow: hidden;
+  background: var(--bg-elev-2);
+  border-radius: 99px;
+}
+
+.worker-bar b {
+  height: 100%;
+  display: block;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: inherit;
+  transition: width .35s ease;
+}
+
+.director-decision-card {
+  flex: 0 0 auto;
+  border-left: 3px solid var(--gold);
+}
+
+.director-decision-card > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+.director-decision-card > div span {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: #fff8dd;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--gold);
+  border-radius: 5px;
+}
+
+.director-decision-card strong {
+  font-size: 11px;
+}
+
+.work-count-grid {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.work-count-grid div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7px 2px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.work-count-grid b {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.work-count-grid span {
+  margin-top: 4px;
+  color: var(--text-dim);
+  font-size: 8px;
+}
+
+.work-count-grid .has-error b { color: var(--fail); }
+
+.plan-queue {
+  padding: 0;
+  min-height: 0;
+  /* 可伸不可缩：内容少时填满左栏（否则底下留一条空白），内容多时把滚动交给
+     外层 .current-work-scroll，而不是在这里再套一个滚动条。 */
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.queue-list {
+  flex: 1 0 auto;
+  overflow: visible;
+}
+
+.subsection-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 9px;
+  border-bottom: 1px solid var(--border);
+}
+
+.subsection-title strong { font-size: 10px; }
+.subsection-title span { color: var(--text-dim); font-size: 9px; }
+
+.queue-step {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.queue-step:last-child { border-bottom: 0; }
+
+.queue-index {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  font: 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.queue-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.queue-copy strong,
+.queue-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.queue-copy strong { font-size: 9px; }
+.queue-copy small { margin-top: 2px; color: var(--text-dim); font-size: 8px; }
+.queue-step em { color: var(--text-dim); font-size: 8px; font-style: normal; }
+.queue-running .queue-index { color: var(--gold); border-color: var(--gold); }
+.queue-done .queue-index { color: var(--ok); border-color: var(--ok); }
+.queue-failed .queue-index { color: var(--fail); border-color: var(--fail); }
+.queue-empty { padding: 14px 9px; color: var(--text-dim); font-size: 9px; line-height: 1.55; }
+
+.queue-preview {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 10px 9px 12px;
+}
+
+.queue-preview > p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.queue-preview ul {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 2px 0;
+  list-style: none;
+}
+
+.queue-preview li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+}
+
+.queue-preview li > span {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--text-faint);
+  font: 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  border: 1px dashed var(--border-strong);
+  border-radius: 50%;
+}
+
+.queue-preview li strong {
+  display: block;
+  color: var(--text-dim);
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.queue-preview li small {
+  display: block;
+  margin-top: 1px;
+  color: var(--text-faint);
+  font-size: 8px;
+}
+
+/* 检索台账：导演在查什么、查到没有，一个词一行。数据来自后端每查完一个词
+   就覆写一次的 search_plan，不是前端编的进度条。 */
+.search-ledger {
+  min-height: 0;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.coverage-row {
+  display: flex;
+  gap: 4px;
+  padding: 8px 9px;
+  border-bottom: 1px solid var(--border);
+}
+
+.coverage-chip {
+  flex: 1 1 0;
+  padding: 4px 0;
+  color: var(--text-faint);
+  font-size: 8px;
+  text-align: center;
+  border: 1px dashed var(--border-strong);
+  border-radius: 5px;
+}
+
+.coverage-chip.is-covered {
+  color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 9%, transparent);
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+}
+
+.ledger-list {
+  /* 逐词台账一多页就变得很长，它的滚动交给外层，不再自己滚。 */
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 15px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  font-size: 9px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ledger-row:last-child { border-bottom: 0; }
+
+.ledger-mark {
+  width: 15px;
+  height: 15px;
+  display: grid;
+  place-items: center;
+  color: var(--text-faint);
+  font-size: 8px;
+  background: var(--bg-elev);
+  border-radius: 50%;
+}
+
+.ledger-query {
+  overflow: hidden;
+  color: var(--text-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ledger-row em {
+  color: var(--text-faint);
+  font-size: 8px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.ledger-hit .ledger-mark { color: var(--ok); background: color-mix(in srgb, var(--ok) 13%, transparent); }
+.ledger-hit em { color: var(--ok); }
+.ledger-fail .ledger-mark { color: var(--fail); background: color-mix(in srgb, var(--fail) 13%, transparent); }
+.ledger-fail em { color: var(--fail); }
+
+.ledger-pending .ledger-mark { background: transparent; border: 1px dashed var(--border-strong); }
+.ledger-pending .ledger-query { color: var(--text-faint); }
+
+.current-blocker {
+  color: var(--fail);
+  border-color: color-mix(in srgb, var(--fail) 42%, var(--border));
+}
+
+.current-blocker strong { display: block; margin-bottom: 4px; font-size: 10px; }
+.current-blocker p { color: var(--fail); }
+
+.topology-panel {
+  display: flex;
+  flex-direction: column;
+  border-color: color-mix(in srgb, var(--gold) 35%, var(--border));
+}
+
+.topology-canvas {
+  position: relative;
+  min-height: 500px;
+  flex: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 9%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 29%),
+    linear-gradient(90deg, color-mix(in srgb, var(--gold) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--gold) 5%, transparent) 1px, transparent 1px),
+    color-mix(in srgb, var(--bg-elev-2) 95%, transparent);
+  background-size: auto, 34px 34px, 34px 34px, auto;
+}
+
+/* The wires live in the same box as the nodes. Shrinking this box (the old
+   `inset: 0 0 50px`) put the SVG on a different vertical scale than the
+   percentage-placed cards, so every edge missed its target. */
+.topology-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+#dispatch-arrow path { fill: color-mix(in srgb, var(--gold) 65%, var(--border-strong)); }
+#flow-arrow path { fill: color-mix(in srgb, var(--accent) 65%, var(--border-strong)); }
+
+.topology-edge {
+  fill: none;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+  transition: stroke .25s ease, opacity .25s ease;
+}
+
+/* 待命：一条安静的铅灰线，不抢视线。 */
+.topology-edge.line-idle {
+  stroke: color-mix(in srgb, var(--border-strong) 62%, transparent);
+  opacity: .5;
+}
+
+/* 等待：一条安静的实线——路线是通的，只是还没走到。底线必须比线上的金珠更"连续"、
+   更淡：图例里实线代表调度，要是被金珠切成一截一截，读起来就变成"没接通"。
+   2.2 的线在缩放后不足两像素，抗锯齿把它糊成比纸面深十几级的浅痕，所以这里给
+   2.6 宽、再压深一档，金珠才像"串在线上"而不是"自己成了一条虚线"。 */
+.topology-edge.line-waiting {
+  stroke: color-mix(in srgb, var(--text-faint) 52%, var(--border-strong));
+  stroke-width: 2.6;
+}
+
+.topology-edge.line-working {
+  stroke: var(--gold);
+  stroke-width: 3;
+}
+
+.topology-edge.line-done {
+  stroke: color-mix(in srgb, var(--ok) 70%, var(--border));
+}
+
+/* 异常：实线红，跟图例里的"虚线＝返工回流"区分开。它也在流，只是流得急。 */
+.topology-edge.line-error {
+  stroke: var(--fail);
+  stroke-width: 2.6;
+}
+
+.topology-edge.line-cancelled {
+  stroke-dasharray: 3 7;
+  opacity: .4;
+}
+
+/* 返工回流：一直是回头的红色虚线，只有出错时才动起来。 */
+.topology-edge.edge-rework {
+  stroke: color-mix(in srgb, var(--accent) 52%, var(--border-strong));
+  stroke-width: 1.8;
+  stroke-dasharray: 4 6;
+  opacity: .85;
+}
+
+.topology-edge.edge-rework.line-error {
+  stroke: var(--fail);
+  animation: agent-line-flow 1.1s linear infinite;
+}
+
+/* 导演 → 工具。工具节点在画布左右两端，线只在中间那段露出来。
+   调用时金色流动，方向指向导演——资料是取回来的。 */
+.tool-link {
+  fill: none;
+  stroke: color-mix(in srgb, var(--border-strong) 62%, transparent);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 7;
+  vector-effect: non-scaling-stroke;
+  opacity: .55;
+  transition: stroke .2s ease, opacity .2s ease;
+}
+
+.tool-link.is-active {
+  stroke: var(--gold);
+  stroke-width: 2.4;
+  opacity: 1;
+  animation: tool-flow .9s linear infinite;
+}
+
+@keyframes tool-flow {
+  to { stroke-dashoffset: -24; }
+}
+
+/* 工具节点：虚线框、没有图标徽章，一眼区别于"Agent"。 */
+.tool-node {
+  position: absolute;
+  z-index: 3;
+  width: 148px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px;
+  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
+  border: 1px dashed var(--border-strong);
+  border-radius: 7px;
+  transform: translate(-50%, -50%);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.tool-node.is-active {
+  border-style: solid;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent), 0 8px 22px color-mix(in srgb, var(--gold) 20%, transparent);
+}
+
+.tool-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.tool-node.is-active .tool-icon {
+  color: #4b2705;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.tool-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-copy strong {
+  overflow: hidden;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-copy small {
+  margin-top: 1px;
+  overflow: hidden;
+  color: var(--text-faint);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-node.is-active .tool-copy small { color: var(--gold); }
+
+/* 产物标签：贴在连线上，回答"虚线里流的是什么"。 */
+.edge-artifact {
+  position: absolute;
+  z-index: 2;
+  padding: 1px 7px;
+  color: var(--text-faint);
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.edge-artifact.artifact-rework {
+  color: color-mix(in srgb, var(--accent) 70%, var(--text));
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+}
+
+/* 派发光束：导演把活交给某个 Agent，就一直亮到它干完。
+   常驻的五条扇出线会把中栏画成一团，所以只画"此刻真在跑的那几条"。
+
+   这里原来是 pathLength=1 + `stroke-dasharray: .16 .84`：Chromium 只对 SVG 属性形式的
+   dash 套用 pathLength，CSS 写的小数会被当成 0.16 像素，于是那条"彗星"从头到尾都没
+   跑起来，只剩一层几乎看不见的底色。改成 viewBox 单位，周期 300 整除位移量，
+   循环才接得上。 */
+.dispatch-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--gold) 20%, transparent);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 700 700;
+  stroke-dashoffset: 700;
+  animation: dispatch-track-in .5s ease-out forwards;
+}
+
+.dispatch-comet {
+  fill: none;
+  /* 比 7px 的底色光带更亮一档，否则只是在浅金带上压一条深线，看不出"有东西在跑"。 */
+  stroke: #fff8e4;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-dasharray: 58 242;
+  animation: dispatch-comet-run 1.5s linear infinite;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold) 78%, transparent));
+}
+
+@keyframes dispatch-track-in {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dispatch-comet-run {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -300; }
+}
+
+/* 回传光流：同一条通道上反向跑的一段短节，读作子 Agent 在回话。
+   方向和 comet 相反靠 dashoffset 走正向（0 → +300）实现，不必把路径反过来写。
+   周期 60 能整除 300，循环接得上；时长故意和 comet 不同（2.2s vs 1.5s），
+   两束才不会像机器同步往返。 */
+.dispatch-reply {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ok) 58%, #eef7ec);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-dasharray: 26 34;
+  animation: dispatch-reply-run 2.2s linear infinite;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--ok) 42%, transparent));
+}
+
+@keyframes dispatch-reply-run {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 300; }
+}
+
+/* 通道底下的呼吸光晕。远看时两条细光段会糊在一起，这层淡金把整条通道托起来，
+   让人先在满屏线里认出"这一条在忙"，再凑近看才看得到来回的光段。 */
+.dispatch-glow {
+  fill: none;
+  stroke: color-mix(in srgb, var(--gold) 16%, transparent);
+  stroke-width: 15;
+  stroke-linecap: round;
+  animation: dispatch-glow-breathe 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dispatch-glow-breathe {
+  0%, 100% { opacity: .45; }
+  50% { opacity: .85; }
+}
+
+/* 沿线上跑的实体。三种强弱，靠颜色和速度区分，不靠图例：
+   hot = 这会儿真的在流（执行中）；done = 已经流过去了；cool = 管子在这儿，还没轮到。 */
+.task-packet {
+  fill: #fff5c9;
+  stroke: var(--gold);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--gold) 70%, transparent));
+}
+
+/* 实线上的光流。路径带 pathLength=1，所以这里的 dash 值都是"占整条线的比例"：
+   长短线跑同一个周期，光段的大小和疏密也不会随画布尺寸变形——这正是原来那批
+   `<circle>` 光点做不到的（它们被 viewBox 的非等比缩放压成了扁椭圆）。
+
+   dashoffset 从 0 走到 -1 正好是一个完整周期，循环无接缝，方向是 source → target。
+   类名不能叫 edge-flow：那正好是 kind 为 flow 的那几条线的基类。 */
+/* 实线上的光流：一段亮色沿路径往前跑，隔一小段再来一段。
+
+   单位是 viewBox 单位（1000×620），不是像素，也不带 pathLength 归一化——Chromium
+   只对 SVG 属性形式的 dash 套用 pathLength，CSS 里写的小数会被当成亚像素，线上就
+   只剩一层噪点。所以这里给的是绝对数值：每条线的光段数不同（长短线本来就不该一样），
+   但所有状态的 dash 周期都能整除位移量 -120，循环才接得上。 */
+.edge-stream {
+  fill: none;
+  stroke: var(--gold);
+  stroke-linecap: round;
+  stroke-width: 2.6;
+  stroke-dasharray: 12 18;
+  animation: edge-stream-run 4.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes edge-stream-run {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -120; }
+}
+
+/* 还没轮到：很淡的金珠慢慢挪，久了才看得出。 */
+.edge-stream.stream-idle {
+  stroke-dasharray: 7 23;
+  opacity: .26;
+  animation-duration: 6.4s;
+}
+
+/* 等待中的线是浅灰底，金珠得比底线沉、比底线粗，才看得出是"珠子在线上一颗颗过"，
+   而不是把线切成虚线。dash 短、间隔长，底线始终连得上。 */
+.edge-stream.stream-waiting {
+  stroke: var(--gold);
+  stroke-width: 3.4;
+  stroke-dasharray: 10 30;
+  opacity: .9;
+  animation-duration: 4.6s;
+}
+
+/* 正在流：底线本身已经是金色，流动段反过来提亮成米白。宁可让金底多露一点——光段
+   太密就退化成"一条会动的虚线"，只在底色上显出几颗走的珠子，才读得出"有东西在过"。 */
+.edge-stream.stream-working {
+  stroke: color-mix(in srgb, var(--gold) 18%, #fffcf2);
+  stroke-width: 3.6;
+  stroke-dasharray: 12 18;
+  animation-duration: 1.2s;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--gold) 62%, transparent));
+}
+
+/* 已经流过去了：绿色，慢一档。留一点流动是为了让整条链还"活"着。 */
+.edge-stream.stream-done {
+  stroke: color-mix(in srgb, var(--ok) 26%, #fbfaf0);
+  stroke-width: 3;
+  stroke-dasharray: 8 32;
+  animation-duration: 3s;
+  opacity: .95;
+}
+
+.edge-stream.stream-error {
+  stroke: color-mix(in srgb, var(--fail) 55%, #fff3e6);
+  stroke-width: 3;
+  stroke-dasharray: 10 10;
+  animation-duration: 1.8s;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--fail) 50%, transparent));
+}
+
+@keyframes agent-line-flow {
+  to { stroke-dashoffset: -30; }
+}
+
+.topology-node {
+  position: absolute;
+  z-index: 3;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 9px;
+  color: var(--text);
+  text-align: left;
+  background: color-mix(in srgb, var(--bg-elev) 96%, transparent);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 7px 18px color-mix(in srgb, var(--wall) 12%, transparent);
+  /* Centred on the percentage anchor, so a resize moves the card and its wire
+     together — the height of the card never shifts the connection point. */
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.topology-node:hover,
+.topology-node.selected {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.topology-node.state-idle {
+  background: color-mix(in srgb, var(--bg-elev) 86%, transparent);
+  border-color: var(--border);
+}
+
+.topology-node.state-idle .node-content strong { color: var(--text-dim); }
+
+.topology-node.state-waiting { border-color: var(--border-strong); }
+
+.topology-node.state-working {
+  border-color: var(--gold);
+  animation: agent-node-breathe 2s ease-in-out infinite;
+}
+
+.topology-node.state-done { border-color: color-mix(in srgb, var(--ok) 65%, var(--border)); }
+.topology-node.state-error { border-color: var(--fail); }
+.topology-node.state-cancelled { opacity: .6; }
+
+/* 左侧竖条：不读文字也能一眼扫出谁在执行、谁已完成、谁出问题。 */
+.topology-node::after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  bottom: 9px;
+  left: -1px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: transparent;
+}
+
+.topology-node.state-working::after { background: var(--gold); }
+.topology-node.state-done::after { background: var(--ok); }
+.topology-node.state-error::after { background: var(--fail); }
+
+/* 选中用外发光环，避免和状态色抢 border。 */
+.topology-node.selected {
+  outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  outline-offset: 2px;
+}
+
+/* 被派发方接收任务时的那一记冲击已经由常驻光束替代，这里只保留呼吸。 */
+
+@keyframes agent-node-breathe {
+  0%, 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 18%, transparent), 0 9px 24px color-mix(in srgb, var(--gold) 14%, transparent); }
+  50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 26%, transparent), 0 9px 30px color-mix(in srgb, var(--gold) 26%, transparent); }
+}
+
+.main-agent {
+  width: 286px;
+  min-height: 74px;
+  padding: 11px;
+  color: color-mix(in srgb, var(--gold) 76%, var(--text));
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--gold) 28%, transparent), transparent 64%),
+    color-mix(in srgb, var(--gold) 8%, var(--bg-elev));
+  border: 2px solid var(--gold);
+}
+
+.main-agent:hover,
+.main-agent.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 18%, transparent), 0 10px 28px color-mix(in srgb, var(--gold) 25%, transparent);
+  transform: translate(-50%, calc(-50% - 2px));
+}
+
+.child-agent {
+  width: 212px;
+  min-height: 68px;
+}
+
+.node-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #fff8e7;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 14px;
+  font-weight: 800;
+  background: var(--wall-2);
+  border: 1px solid var(--wall-line);
+  border-radius: 50%;
+}
+
+.main-agent .node-icon {
+  color: #4b2705;
+  background: linear-gradient(145deg, #ffe6a5, var(--gold));
+  border-color: var(--gold);
+}
+
+.node-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.node-content strong {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node-content em {
+  margin-top: 1px;
+  color: var(--accent);
+  font-size: 9px;
+  font-style: normal;
+}
+
+.node-content small {
+  margin-top: 4px;
+  overflow: hidden;
+  color: var(--text-dim);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node-state,
+.status-agent-state,
+.selected-head em {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px;
+  color: var(--text-dim);
+  font-size: 8px;
+  font-style: normal;
+  white-space: nowrap;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+}
+
+.node-state i {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .55;
+}
+
+/* 检索期间把状态点换成一枚小转子：一直动的东西才是"它还在查"的证据。 */
+.node-spinner {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border: 1px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: node-spin .8s linear infinite;
+}
+
+@keyframes node-spin {
+  to { transform: rotate(360deg); }
+}
+
+.state-working .node-state i {
+  opacity: 1;
+  animation: agent-dot-pulse 1.2s ease-in-out infinite;
+}
+
+.state-working .node-state,
+.status-agent-state.state-working,
+.selected-head em.state-working { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 52%, var(--border)); }
+.state-done .node-state,
+.status-agent-state.state-done,
+.selected-head em.state-done { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 52%, var(--border)); }
+.state-error .node-state,
+.status-agent-state.state-error,
+.selected-head em.state-error { color: var(--fail); border-color: color-mix(in srgb, var(--fail) 52%, var(--border)); }
+
+.node-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.node-timer {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes agent-dot-pulse {
+  50% { opacity: .25; }
+}
+
+/* 阶段条：把原来那条纯装饰的流程横条换成能读进度的步进器。 */
+.stage-strip {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  left: 14px;
+  z-index: 4;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 12px;
+  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+
+.stage-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-faint);
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.stage-step + .stage-step::before {
+  content: "";
+  width: 10px;
+  height: 1px;
+  margin-right: 3px;
+  background: var(--border-strong);
+  opacity: .6;
+}
+
+.stage-step i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+}
+
+.stage-step em {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-step.stage-done { color: var(--text-dim); }
+.stage-step.stage-done i { background: var(--ok); border-color: var(--ok); }
+
+.stage-step.stage-working { color: var(--gold); }
+.stage-step.stage-working i {
+  background: var(--gold);
+  border-color: var(--gold);
+  animation: agent-dot-pulse 1.2s ease-in-out infinite;
+}
+
+.stage-step.stage-error { color: var(--fail); }
+.stage-step.stage-error i { background: var(--fail); border-color: var(--fail); }
+
+.stage-step.is-current span { color: var(--text); }
+
+/* The roster shares the leftover height instead of leaving a dead strip at the
+   bottom of the column: six equal rows read as a proper roster, and the list
+   still shrinks and scrolls when the run is busy and the detail card grows. */
+.status-agent-list {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  padding: 7px 8px 0;
+}
+
+.status-agent {
+  width: 100%;
+  min-height: 46px;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  color: var(--text);
+  text-align: left;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.status-agent:hover,
+.status-agent.selected {
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg-elev-2));
+  border-color: var(--accent);
+}
+
+.status-agent.master {
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-elev-2));
+  border-color: color-mix(in srgb, var(--gold) 48%, var(--border));
+}
+
+.status-agent-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: var(--wall-text);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--wall-2);
+  border-radius: 50%;
+}
+
+.status-agent.master .status-agent-icon {
+  color: #402005;
+  background: var(--gold);
+}
+
+.status-agent-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-agent-copy strong {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 10px;
+}
+
+.status-agent-copy em {
+  color: var(--accent);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.status-agent-copy small {
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--text-dim);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-agent-state em {
+  margin-left: 4px;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 8px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.selected-agent-detail {
+  min-height: 0;
+  flex: 0 0 auto;
+  margin: 3px 8px 8px;
+  overflow: auto;
+  border-left: 3px solid var(--accent);
+}
+
+.selected-head {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+}
+
+.selected-head > span {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--wall-text);
+  font-size: 9px;
+  font-weight: 800;
+  background: var(--wall-2);
+  border-radius: 50%;
+}
+
+.selected-head strong { font-size: 10px; }
+
+.selected-agent-detail > p {
+  margin: 9px 0;
+  color: var(--text-dim);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.selected-agent-detail dl {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 5px 7px;
+  margin: 0;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.selected-agent-detail dt { color: var(--text-dim); }
+.selected-agent-detail dd { margin: 0; color: var(--text); }
+.selected-agent-detail dd.detail-live { color: var(--accent); }
+
+.dispatch-timeline {
+  position: relative;
+  min-height: 100px;
+  flex: 0 0 100px;
+  display: grid;
+  grid-template-columns: 135px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 10px 10px;
+  background: var(--bg-elev);
+  border-top: 1px solid var(--border-strong);
+}
+
+.timeline-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 11px;
+  border-right: 1px solid var(--border);
+}
+
+.timeline-title strong {
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 12px;
+}
+
+.timeline-title span {
+  margin-top: 5px;
+  color: var(--text-dim);
+  font-size: 8px;
+}
+
+.timeline-events {
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 7px;
+  overflow-x: auto;
+}
+
+/* 卡片本身是个按钮：4 行放不下的长消息，点开在一块浮层里读全文。
+   原来这里在 JS 里把文本砍到 74 字，再被 overflow:hidden 截一刀，两头都不讨好。 */
+.timeline-event {
+  width: 190px;
+  min-width: 190px;
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: start;
+  column-gap: 6px;
+  padding: 7px;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  appearance: none;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease;
+}
+
+.timeline-event:hover {
+  background: color-mix(in srgb, var(--gold) 8%, var(--bg-elev-2));
+  border-color: color-mix(in srgb, var(--gold) 34%, var(--border));
+}
+
+.timeline-event.is-open {
+  background: color-mix(in srgb, var(--gold) 12%, var(--bg-elev-2));
+  border-color: color-mix(in srgb, var(--gold) 58%, var(--border));
+}
+
+.timeline-event > span {
+  grid-row: 1 / 3;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  font: 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  background: var(--bg-elev);
+  border-radius: 50%;
+}
+
+.timeline-event strong {
+  overflow: hidden;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-event p {
+  display: -webkit-box;
+  margin: 3px 0 0;
+  overflow: hidden;
+  color: var(--text-dim);
+  font-size: 8px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  /* 行数跟着底栏高度走：矮屏（≤820）只有 3 行的位置，写死 4 行会切出半行字。 */
+  -webkit-line-clamp: var(--timeline-lines, 4);
+}
+
+/* 点开后的全文浮层：挂在底栏上沿往上长，不挤压拓扑，也不和标题栏重叠。 */
+.timeline-detail {
+  position: absolute;
+  right: 10px;
+  bottom: calc(100% - 1px);
+  /* 与左栏右沿对齐，不压住台账那几行 —— 读全文时左边的工作情况还得看得到。 */
+  left: 196px;
+  z-index: 20;
+  max-height: 190px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--bg-elev) 97%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, var(--border));
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -12px 32px color-mix(in srgb, var(--wall) 26%, transparent);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text) 26%, transparent) transparent;
+}
+
+.timeline-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-detail-head > span {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  font: 8px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  background: var(--bg-elev-2);
+  border-radius: 50%;
+}
+
+.timeline-detail-head strong { font-size: 11px; }
+
+.timeline-detail-head em {
+  padding: 2px 6px;
+  color: var(--gold);
+  font-size: 8px;
+  font-style: normal;
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, var(--border));
+  border-radius: 999px;
+}
+
+.timeline-detail-head button { margin-left: auto; }
+
+.timeline-detail > p {
+  margin: 0;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.timeline-event.event-error,
+.timeline-event.event-rework { border-top-color: var(--fail); }
+.timeline-event.event-review { border-top-color: var(--ok); }
+/* 空态是这块 100px 唯一的住户，旧版是 10px 的淡灰字，等于没写。 */
+.timeline-empty {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  text-align: center;
+  background: color-mix(in srgb, var(--bg-elev-2) 55%, transparent);
+  border: 1px dashed var(--border-strong);
+  border-radius: 7px;
+}
+
+.timeline-empty strong {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+.timeline-empty small {
+  color: var(--text-faint);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1450px) {
+  .agent-screen-body { grid-template-columns: 230px minmax(540px, 1fr) 286px; }
+  .agent-screen-head { grid-template-columns: 245px minmax(340px, 1fr) auto; }
+  .child-agent { width: 184px; }
+  .node-meta { display: none; }
+  .topology-node { grid-template-columns: 34px minmax(0, 1fr); }
+  .node-icon { width: 34px; height: 34px; }
+  .edge-artifact { padding: 1px 5px; font-size: 9px; }
+  .tool-node { width: 118px; padding: 7px; }
+  .tool-copy small { display: none; }
+}
+
+@media (max-height: 820px) {
+  .dispatch-timeline { --timeline-lines: 3; }
+  .agent-screen-head { min-height: 62px; flex-basis: 62px; }
+  .agent-screen-body { padding-top: 7px; padding-bottom: 7px; }
+  .topology-canvas { min-height: 435px; }
+  .dispatch-timeline { min-height: 88px; flex-basis: 88px; }
+  .stage-strip { height: 30px; }
+}
+
+/* 减少动效：不再直接绑 prefers-reduced-motion。那会让「系统关了动画」的机器
+   一开大屏就全是静止的线，用户无从恢复。改由设置页「常规」的三档开关算出
+   .motion-off 挂到根容器上（见 motionMode.ts / AgentBigScreen.tsx）：
+     强制开  → 不加 class，光流照常跑（默认）
+     跟随系统 → 系统要求减少动效时才加
+     关闭    → 恒加
+   作用域限定在 .motion-off 内，别处用到同名 class（spinner / 进度条）不受影响。 */
+.agent-screen-backdrop.motion-off .tool-link.is-active { animation: none; }
+.agent-screen-backdrop.motion-off .task-packet { display: none; }
+/* 线本身已经是实心的了，光流关掉不影响"哪条通到哪"的读法。 */
+.agent-screen-backdrop.motion-off .edge-stream { display: none; }
+/* 光束完全靠 dash 动画显形，关掉动画就什么都看不见了——这里让它常亮。 */
+.agent-screen-backdrop.motion-off .dispatch-track { animation: none; stroke-dashoffset: 0; opacity: .55; }
+.agent-screen-backdrop.motion-off .dispatch-comet { display: none; }
+/* 回传光流也是纯动画，关掉；底下的光晕留着，它标出"这条通道在忙"。 */
+.agent-screen-backdrop.motion-off .dispatch-reply { display: none; }
+.agent-screen-backdrop.motion-off .dispatch-glow { animation: none; opacity: .5; }
+.agent-screen-backdrop.motion-off .node-spinner { animation: none; border-top-color: currentColor; opacity: .55; }
+.agent-screen-backdrop.motion-off .worker-bar.is-indeterminate b { animation: none; width: 100% !important; margin-left: 0; opacity: .5; }
